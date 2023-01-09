@@ -1,0 +1,25 @@
+name: download
+
+on:
+  push:
+    branches:
+      - test
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  "27 23 * * 3"
+
+jobs:
+  scheduled-cdc-mortality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: master
+
+      - name: Download
+        run: curl --retry 20 --fail "https://data.cdc.gov/api/views/muzy-jte6/rows.csv?accessType=DOWNLOAD" | xz -9 > $(date +"%Y-%m-%d")-"Weekly_Provisional_Counts_of_Death_by_Jurisdiction_and_Select_Causes_of_Death".csv.gz
+        shell: bash
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: CDC Data
