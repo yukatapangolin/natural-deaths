@@ -17,7 +17,7 @@ jobs:
           ref: master
 
       - name: Download
-        run: curl --retry 20 --fail "https://data.cdc.gov/api/views/muzy-jte6/rows.csv?accessType=DOWNLOAD" | xz -9 -c  > $(date +"%Y-%m-%d")-"Weekly_Provisional_Counts_of_Death_by_Jurisdiction_and_Select_Causes_of_Death".csv.gz
+        run: curl --retry 20 --fail "https://data.cdc.gov/api/views/muzy-jte6/rows.csv?accessType=DOWNLOAD" | xz -9 -c  > $(date +"%Y-%m-%d")-"Weekly_Provisional_Counts_of_Death_by_Jurisdiction_and_Select_Causes_of_Death".csv.xz
         shell: bash
 
       - uses: stefanzweifel/git-auto-commit-action@v4
